@@ -1,0 +1,25 @@
+{
+  "name": "chatty",
+  "version": "1.0.0",
+  "description": "A websocket based chat in React",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glptrst/chatty.git"
+  },
+  "author": "Giulio Pietroiusti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pietroiusti/react_chat/issues"
+  },
+  "homepage": "https://github.com/pietroiusti/react_chat#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
+    "ws": "^8.4.2"
+  }
+}
