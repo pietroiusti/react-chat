@@ -64,7 +64,8 @@ wss.on('connection', (ws) => {
     if (req.type === 'joinChat') {
       if (usernameExists(req.username)) { //TODO: further conditions?
 	ws.send(JSON.stringify({
-	  type: 'usernameTaken'
+	  type: 'error',
+	  message: 'Username already taken',
 	}));
       } else {
 	joinChat(ws, req.username);
@@ -81,12 +82,20 @@ wss.on('connection', (ws) => {
 });
 
 function joinChat(ws, username) {
-  let user = {ws: ws, username: username};
-  users.push(user);
-  
-  ws.send(JSON.stringify({
-    type: 'joinChat'
-  }));
+  try {
+    let user = {ws: ws, username: username};
+    users.push(user);
+    
+    ws.send(JSON.stringify({
+      type: 'usernameConnectionSuccess'
+    }));
+  } catch(e) {
+    console.log(e);
+    ws.send({
+      type: 'Error',
+      message: ':O',
+    });
+  }
 }
 
 function message(message, username) {
