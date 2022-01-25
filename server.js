@@ -87,7 +87,8 @@ function joinChat(ws, username) {
     users.push(user);
     
     ws.send(JSON.stringify({
-      type: 'usernameConnectionSuccess'
+      type: 'usernameConnectionSuccess',
+      username: username,
     }));
   } catch(e) {
     console.log(e);
