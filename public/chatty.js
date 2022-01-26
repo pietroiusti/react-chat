@@ -22,10 +22,12 @@ var Chat = function (_React$Component) {
       showUsernamePrompt: true,
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
-      messages: []
+      messages: [],
+      inputValue: ''
     };
     _this.handleUsernameSubmit = _this.handleUsernameSubmit.bind(_this);
     _this.handleMessageSubmit = _this.handleMessageSubmit.bind(_this);
+    _this.handleInputChange = _this.handleInputChange.bind(_this);
     return _this;
   }
 
@@ -58,22 +60,29 @@ var Chat = function (_React$Component) {
       };
     }
   }, {
-    key: 'handleUsernameSubmit',
-    value: function handleUsernameSubmit(username) {
-      this.ws.send(JSON.stringify({
-        type: 'joinChat',
-        username: username
-      }));
+    key: 'handleInputChange',
+    value: function handleInputChange(e) {
+      e.preventDefault();
+      this.setState({ inputValue: e.target.value });
     }
   }, {
     key: 'handleMessageSubmit',
-    value: function handleMessageSubmit(e, message) {
+    value: function handleMessageSubmit(e) {
+      this.setState({ inputValue: '' });
       e.preventDefault();
       //console.log({u: this.state.username, m: message});
       this.ws.send(JSON.stringify({
         type: 'message',
         username: this.state.username,
-        content: message
+        content: this.state.inputValue
+      }));
+    }
+  }, {
+    key: 'handleUsernameSubmit',
+    value: function handleUsernameSubmit(username) {
+      this.ws.send(JSON.stringify({
+        type: 'joinChat',
+        username: username
       }));
     }
   }, {
@@ -86,7 +95,8 @@ var Chat = function (_React$Component) {
           'div',
           null,
           React.createElement(MessageBoard, { messagesList: this.state.messages }),
-          React.createElement(MessageInput, { handleSubmit: this.handleMessageSubmit })
+          React.createElement(MessageInput, { value: this.state.inputValue, handleChange: this.handleInputChange,
+            handleSubmit: this.handleMessageSubmit })
         );
       }
     }
@@ -118,70 +128,64 @@ function MessageBoard(props) {
 }
 
 // TODO: extract the input from MessageBoard, no?
+// class MessageInput extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       value: '',      
+//     };
+//     this.handleChange = this.handleChange.bind(this);
+//     // this.handleSubmit = this.handleSubmit.bind(this);
+//   }
+//   // handleSubmit(event) {
+//   //   event.preventDefault();
+//   //   console.log(`I should be sending: ${this.state.value}, but...`);
+//   // }
+//   // handleChange(event) {
+//   //   this.setState({value: event.target.value});
+//   // }
+//   render() {
+//     return (
+//       <div>
+//         <form onSubmit={this.props.handleSubmit}>
+//           <input id="messageInput" autocomplete="off"
+//                  autofocus="true" onChange={(e)=>this.prosp.handleChange(e.target.value)}/>
+//         </form>
+//       </div>
+//     );
+//   }
+// }
 
-var MessageInput = function (_React$Component2) {
-  _inherits(MessageInput, _React$Component2);
+function MessageInput(props) {
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'form',
+      { onSubmit: props.handleSubmit },
+      React.createElement('input', { id: 'messageInput', autocomplete: 'off',
+        autofocus: 'true', onChange: function onChange(e) {
+          return props.handleChange(e);
+        },
+        value: props.value })
+    )
+  );
+}
 
-  function MessageInput(props) {
-    _classCallCheck(this, MessageInput);
+var UsernameForm = function (_React$Component2) {
+  _inherits(UsernameForm, _React$Component2);
 
-    var _this3 = _possibleConstructorReturn(this, (MessageInput.__proto__ || Object.getPrototypeOf(MessageInput)).call(this, props));
+  function UsernameForm(props) {
+    _classCallCheck(this, UsernameForm);
+
+    var _this3 = _possibleConstructorReturn(this, (UsernameForm.__proto__ || Object.getPrototypeOf(UsernameForm)).call(this, props));
 
     _this3.state = {
       value: ''
     };
     _this3.handleChange = _this3.handleChange.bind(_this3);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    _this3.handleKeyUp = _this3.handleKeyUp.bind(_this3);
     return _this3;
-  }
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   console.log(`I should be sending: ${this.state.value}, but...`);
-  // }
-
-
-  _createClass(MessageInput, [{
-    key: 'handleChange',
-    value: function handleChange(event) {
-      this.setState({ value: event.target.value });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this4 = this;
-
-      return React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'form',
-          { onSubmit: function onSubmit(e) {
-              return _this4.props.handleSubmit(e, _this4.state.value);
-            } },
-          React.createElement('input', { id: 'messageInput', autocomplete: 'off',
-            autofocus: 'true', onChange: this.handleChange })
-        )
-      );
-    }
-  }]);
-
-  return MessageInput;
-}(React.Component);
-
-var UsernameForm = function (_React$Component3) {
-  _inherits(UsernameForm, _React$Component3);
-
-  function UsernameForm(props) {
-    _classCallCheck(this, UsernameForm);
-
-    var _this5 = _possibleConstructorReturn(this, (UsernameForm.__proto__ || Object.getPrototypeOf(UsernameForm)).call(this, props));
-
-    _this5.state = {
-      value: ''
-    };
-    _this5.handleChange = _this5.handleChange.bind(_this5);
-    _this5.handleKeyUp = _this5.handleKeyUp.bind(_this5);
-    return _this5;
   }
 
   _createClass(UsernameForm, [{

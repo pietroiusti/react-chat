@@ -8,9 +8,11 @@ class Chat extends React.Component {
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
       messages: [],
+      inputValue: '',
     };
     this.handleUsernameSubmit = this.handleUsernameSubmit.bind(this);
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -38,20 +40,26 @@ class Chat extends React.Component {
     };
   }
 
-  handleUsernameSubmit(username) {
-    this.ws.send(JSON.stringify({
-      type: 'joinChat',
-      username: username,
-    }));
+  handleInputChange(e) {
+    e.preventDefault();
+    this.setState({inputValue: e.target.value});
   }
 
-  handleMessageSubmit(e, message) {
+  handleMessageSubmit(e) {
+    this.setState({inputValue: ''});
     e.preventDefault();
     //console.log({u: this.state.username, m: message});
     this.ws.send(JSON.stringify({
       type: 'message',
       username: this.state.username,
-      content: message,
+      content: this.state.inputValue,
+    }));
+  }
+
+  handleUsernameSubmit(username) {
+    this.ws.send(JSON.stringify({
+      type: 'joinChat',
+      username: username,
     }));
   }
 
@@ -65,7 +73,8 @@ class Chat extends React.Component {
       return (
         <div>
           <MessageBoard messagesList={this.state.messages} />
-          <MessageInput handleSubmit={this.handleMessageSubmit} />
+          <MessageInput value={this.state.inputValue} handleChange={this.handleInputChange}
+                        handleSubmit={this.handleMessageSubmit} />
         </div>
       );
     }
@@ -89,32 +98,44 @@ function MessageBoard(props) {
 }
 
 // TODO: extract the input from MessageBoard, no?
-class MessageInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',      
-    };
-    this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   console.log(`I should be sending: ${this.state.value}, but...`);
-  // }
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-  render() {
-    return (
-      <div>
-        <form onSubmit={(e)=>this.props.handleSubmit(e, this.state.value)}>
-          <input id="messageInput" autocomplete="off"
-                 autofocus="true" onChange={this.handleChange}/>
-        </form>
-      </div>
-    );
-  }
+// class MessageInput extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       value: '',      
+//     };
+//     this.handleChange = this.handleChange.bind(this);
+//     // this.handleSubmit = this.handleSubmit.bind(this);
+//   }
+//   // handleSubmit(event) {
+//   //   event.preventDefault();
+//   //   console.log(`I should be sending: ${this.state.value}, but...`);
+//   // }
+//   // handleChange(event) {
+//   //   this.setState({value: event.target.value});
+//   // }
+//   render() {
+//     return (
+//       <div>
+//         <form onSubmit={this.props.handleSubmit}>
+//           <input id="messageInput" autocomplete="off"
+//                  autofocus="true" onChange={(e)=>this.prosp.handleChange(e.target.value)}/>
+//         </form>
+//       </div>
+//     );
+//   }
+// }
+
+function MessageInput(props) {
+  return (
+    <div>
+      <form onSubmit={props.handleSubmit}>
+        <input id="messageInput" autocomplete="off"
+               autofocus="true" onChange={(e)=>props.handleChange(e)}
+               value={props.value} />
+      </form>
+    </div>
+  );
 }
 
 class UsernameForm extends React.Component {
