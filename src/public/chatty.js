@@ -7,6 +7,7 @@ class Chat extends React.Component {
       showUsernamePrompt: true,
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
+      messages: [],
     };
     this.handleUsernameSubmit = this.handleUsernameSubmit.bind(this);
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
@@ -28,8 +29,11 @@ class Chat extends React.Component {
         this.setState({showUsernamePrompt: false,
                        username: message.username});
       } else if (message.type === 'message') {
-        console.log(`TODO: I should display the message from ${message.username}:
-${message.content}`);
+        let m = {username: message.username, message: message.content};
+        this.setState((state) => {
+          let messages = state.messages.push(m);
+          return messages;
+        });
       }
     };
   }
@@ -60,7 +64,7 @@ ${message.content}`);
     else {
       return (
         <div>
-          <MessageBoard />
+          <MessageBoard messagesList={this.state.messages} />
           <MessageInput handleSubmit={this.handleMessageSubmit} />
         </div>
       );
@@ -68,18 +72,20 @@ ${message.content}`);
   }
 }
 
-class MessageBoard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div>
-        <ul id="messages">
-        </ul>
-      </div>
-    );
-  }
+function MessageBoard(props) {
+  console.log(props);
+  console.log(typeof props.messagesList);
+  console.log(props.messagesList);
+  let messages = props.messagesList.map((m) =>     
+    <li>{'<'+m.username+'>'+' '+m.message}</li>
+  );
+  return (
+    <div>
+      <ul id="messages">
+        {messages}
+      </ul>
+    </div>
+  );
 }
 
 // TODO: extract the input from MessageBoard, no?

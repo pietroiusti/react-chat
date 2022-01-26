@@ -1,5 +1,7 @@
 "use strict";
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19,7 +21,8 @@ var Chat = function (_React$Component) {
     _this.state = {
       showUsernamePrompt: true,
       host: location.origin.replace(/^http/, 'ws'),
-      username: ''
+      username: '',
+      messages: []
     };
     _this.handleUsernameSubmit = _this.handleUsernameSubmit.bind(_this);
     _this.handleMessageSubmit = _this.handleMessageSubmit.bind(_this);
@@ -46,7 +49,11 @@ var Chat = function (_React$Component) {
           _this2.setState({ showUsernamePrompt: false,
             username: message.username });
         } else if (message.type === 'message') {
-          console.log('TODO: I should display the message from ' + message.username + ':\n' + message.content);
+          var m = { username: message.username, message: message.content };
+          _this2.setState(function (state) {
+            var messages = state.messages.push(m);
+            return messages;
+          });
         }
       };
     }
@@ -78,7 +85,7 @@ var Chat = function (_React$Component) {
         return React.createElement(
           'div',
           null,
-          React.createElement(MessageBoard, null),
+          React.createElement(MessageBoard, { messagesList: this.state.messages }),
           React.createElement(MessageInput, { handleSubmit: this.handleMessageSubmit })
         );
       }
@@ -88,46 +95,44 @@ var Chat = function (_React$Component) {
   return Chat;
 }(React.Component);
 
-var MessageBoard = function (_React$Component2) {
-  _inherits(MessageBoard, _React$Component2);
-
-  function MessageBoard(props) {
-    _classCallCheck(this, MessageBoard);
-
-    return _possibleConstructorReturn(this, (MessageBoard.__proto__ || Object.getPrototypeOf(MessageBoard)).call(this, props));
-  }
-
-  _createClass(MessageBoard, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'div',
-        null,
-        React.createElement('ul', { id: 'messages' })
-      );
-    }
-  }]);
-
-  return MessageBoard;
-}(React.Component);
+function MessageBoard(props) {
+  console.log(props);
+  console.log(_typeof(props.messagesList));
+  console.log(props.messagesList);
+  var messages = props.messagesList.map(function (m) {
+    return React.createElement(
+      'li',
+      null,
+      '<' + m.username + '>' + ' ' + m.message
+    );
+  });
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'ul',
+      { id: 'messages' },
+      messages
+    )
+  );
+}
 
 // TODO: extract the input from MessageBoard, no?
 
-
-var MessageInput = function (_React$Component3) {
-  _inherits(MessageInput, _React$Component3);
+var MessageInput = function (_React$Component2) {
+  _inherits(MessageInput, _React$Component2);
 
   function MessageInput(props) {
     _classCallCheck(this, MessageInput);
 
-    var _this4 = _possibleConstructorReturn(this, (MessageInput.__proto__ || Object.getPrototypeOf(MessageInput)).call(this, props));
+    var _this3 = _possibleConstructorReturn(this, (MessageInput.__proto__ || Object.getPrototypeOf(MessageInput)).call(this, props));
 
-    _this4.state = {
+    _this3.state = {
       value: ''
     };
-    _this4.handleChange = _this4.handleChange.bind(_this4);
+    _this3.handleChange = _this3.handleChange.bind(_this3);
     // this.handleSubmit = this.handleSubmit.bind(this);
-    return _this4;
+    return _this3;
   }
   // handleSubmit(event) {
   //   event.preventDefault();
@@ -143,7 +148,7 @@ var MessageInput = function (_React$Component3) {
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       return React.createElement(
         'div',
@@ -151,7 +156,7 @@ var MessageInput = function (_React$Component3) {
         React.createElement(
           'form',
           { onSubmit: function onSubmit(e) {
-              return _this5.props.handleSubmit(e, _this5.state.value);
+              return _this4.props.handleSubmit(e, _this4.state.value);
             } },
           React.createElement('input', { id: 'messageInput', autocomplete: 'off',
             autofocus: 'true', onChange: this.handleChange })
@@ -163,20 +168,20 @@ var MessageInput = function (_React$Component3) {
   return MessageInput;
 }(React.Component);
 
-var UsernameForm = function (_React$Component4) {
-  _inherits(UsernameForm, _React$Component4);
+var UsernameForm = function (_React$Component3) {
+  _inherits(UsernameForm, _React$Component3);
 
   function UsernameForm(props) {
     _classCallCheck(this, UsernameForm);
 
-    var _this6 = _possibleConstructorReturn(this, (UsernameForm.__proto__ || Object.getPrototypeOf(UsernameForm)).call(this, props));
+    var _this5 = _possibleConstructorReturn(this, (UsernameForm.__proto__ || Object.getPrototypeOf(UsernameForm)).call(this, props));
 
-    _this6.state = {
+    _this5.state = {
       value: ''
     };
-    _this6.handleChange = _this6.handleChange.bind(_this6);
-    _this6.handleKeyUp = _this6.handleKeyUp.bind(_this6);
-    return _this6;
+    _this5.handleChange = _this5.handleChange.bind(_this5);
+    _this5.handleKeyUp = _this5.handleKeyUp.bind(_this5);
+    return _this5;
   }
 
   _createClass(UsernameForm, [{
