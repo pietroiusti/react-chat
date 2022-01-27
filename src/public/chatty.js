@@ -82,9 +82,6 @@ class Chat extends React.Component {
 }
 
 function MessageBoard(props) {
-  console.log(props);
-  console.log(typeof props.messagesList);
-  console.log(props.messagesList);
   let messages = props.messagesList.map((m) =>     
     <li>{'<'+m.username+'>'+' '+m.message}</li>
   );
@@ -97,41 +94,12 @@ function MessageBoard(props) {
   );
 }
 
-// TODO: extract the input from MessageBoard, no?
-// class MessageInput extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       value: '',      
-//     };
-//     this.handleChange = this.handleChange.bind(this);
-//     // this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-//   // handleSubmit(event) {
-//   //   event.preventDefault();
-//   //   console.log(`I should be sending: ${this.state.value}, but...`);
-//   // }
-//   // handleChange(event) {
-//   //   this.setState({value: event.target.value});
-//   // }
-//   render() {
-//     return (
-//       <div>
-//         <form onSubmit={this.props.handleSubmit}>
-//           <input id="messageInput" autocomplete="off"
-//                  autofocus="true" onChange={(e)=>this.prosp.handleChange(e.target.value)}/>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
-
 function MessageInput(props) {
   return (
     <div>
       <form onSubmit={props.handleSubmit}>
         <input id="messageInput" autocomplete="off"
-               autofocus="true" onChange={(e)=>props.handleChange(e)}
+               autoFocus="true" onChange={(e)=>props.handleChange(e)}
                value={props.value} />
       </form>
     </div>
@@ -160,7 +128,7 @@ class UsernameForm extends React.Component {
 
   render() {
     return (
-      <input autofocus="true" type="text"
+      <input autoFocus="true" type="text"
              placeholder="username" id="usernameInput"
              onChange={this.handleChange}
              onKeyUp={this.handleKeyUp}/>
