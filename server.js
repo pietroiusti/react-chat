@@ -85,11 +85,22 @@ function joinChat(ws, username) {
   try {
     let user = {ws: ws, username: username};
     users.push(user);
-    
+
     ws.send(JSON.stringify({
       type: 'usernameConnectionSuccess',
       username: username,
     }));
+    
+    console.log('users:');
+    console.log(users.map(u=>u.username));    
+
+    users.forEach(u => {
+      u.ws.send(JSON.stringify({
+        type: 'userJoined',
+        users: users.map(u=>u.username),
+      }));
+    });
+    
   } catch(e) {
     console.log(e);
     ws.send({
@@ -109,8 +120,14 @@ function message(message, username) {
   });
 }
 
-function disconnect(ws) {
+function disconnect(ws) {  
   users = users.filter( (u) => !(u.ws === ws) ); // remove user from users
+  users.forEach((u) => {
+    u.ws.send(JSON.stringify({
+      type: 'userLeft',
+      users: users.map(u=>u.username),
+    }));
+  });
 }
 
 function usernameExists(username) {

@@ -7,6 +7,7 @@ class Chat extends React.Component {
       showUsernamePrompt: true,
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
+      users: [],
       messages: [],
       inputValue: '',
     };
@@ -30,11 +31,22 @@ class Chat extends React.Component {
       if (message.type === 'usernameConnectionSuccess') {
         this.setState({showUsernamePrompt: false,
                        username: message.username});
+      } else if (message.type === 'userJoined') {
+        this.setState({
+          users: message.users,
+        });
+      } else if (message.type === 'userLeft') {
+        this.setState({
+          users: message.users,
+        });
       } else if (message.type === 'message') {
         let m = {username: message.username, message: message.content};
+        console.log('message:')
+        console.log(m);
         this.setState((state) => {
-          let messages = state.messages.push(m);
-          return messages;
+          let mess = state.messages.slice();
+          mess.push(m);
+          return {messages: mess};
         });
       }
     };

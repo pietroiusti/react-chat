@@ -20,6 +20,7 @@ var Chat = function (_React$Component) {
       showUsernamePrompt: true,
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
+      users: [],
       messages: [],
       inputValue: ''
     };
@@ -48,11 +49,22 @@ var Chat = function (_React$Component) {
         if (message.type === 'usernameConnectionSuccess') {
           _this2.setState({ showUsernamePrompt: false,
             username: message.username });
+        } else if (message.type === 'userJoined') {
+          _this2.setState({
+            users: message.users
+          });
+        } else if (message.type === 'userLeft') {
+          _this2.setState({
+            users: message.users
+          });
         } else if (message.type === 'message') {
           var m = { username: message.username, message: message.content };
+          console.log('message:');
+          console.log(m);
           _this2.setState(function (state) {
-            var messages = state.messages.push(m);
-            return messages;
+            var mess = state.messages.slice();
+            mess.push(m);
+            return { messages: mess };
           });
         }
       };
