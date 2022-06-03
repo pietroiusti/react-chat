@@ -104,6 +104,7 @@ var Chat = function (_React$Component) {
         return React.createElement(
           'div',
           null,
+          React.createElement(UserList, { users: this.state.users }),
           React.createElement(MessageBoard, { messagesList: this.state.messages }),
           React.createElement(MessageInput, { value: this.state.inputValue, handleChange: this.handleInputChange,
             handleSubmit: this.handleMessageSubmit })
@@ -114,6 +115,25 @@ var Chat = function (_React$Component) {
 
   return Chat;
 }(React.Component);
+
+function UserList(props) {
+  var users = props.users.map(function (u) {
+    return React.createElement(
+      'li',
+      null,
+      u
+    );
+  });
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'ul',
+      { id: 'userlist' },
+      users
+    )
+  );
+}
 
 function MessageBoard(props) {
   var messages = props.messagesList.map(function (m) {

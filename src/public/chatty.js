@@ -84,6 +84,7 @@ class Chat extends React.Component {
     else {
       return (
         <div>
+          <UserList users={this.state.users} />
           <MessageBoard messagesList={this.state.messages} />
           <MessageInput value={this.state.inputValue} handleChange={this.handleInputChange}
                         handleSubmit={this.handleMessageSubmit} />
@@ -91,6 +92,19 @@ class Chat extends React.Component {
       );
     }
   }
+}
+
+function UserList(props) {
+  let users = props.users.map((u) =>
+    <li>{u}</li>
+  );
+  return (
+    <div>
+      <ul id="userlist">
+        {users}
+      </ul>
+    </div>
+  );
 }
 
 function MessageBoard(props) {
