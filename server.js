@@ -121,7 +121,13 @@ function message(message, username) {
 }
 
 function disconnect(ws) {  
+  // barbarically inefficient but getting the job done for now...
+  let userLeaving = users.filter( (u) => u.ws === ws ); // TODO:
+                                                        // notify with
+                                                        // the name of
+                                                        // user leaving!
   users = users.filter( (u) => !(u.ws === ws) ); // remove user from users
+
   users.forEach((u) => {
     u.ws.send(JSON.stringify({
       type: 'userLeft',

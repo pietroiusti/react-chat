@@ -32,22 +32,47 @@ class Chat extends React.Component {
         this.setState({showUsernamePrompt: false,
                        username: message.username});
       } else if (message.type === 'userJoined') {
-        this.setState({
-          users: message.users,
+        console.log('New user has joined the chat.');
+
+        let m = {username: null, message: `someone(?) has joined the chat.`};
+
+        this.setState((state) => {
+          let mess = state.messages.slice();
+          mess.push(m);
+          return {
+            messages: mess,
+            users: message.users,
+          };
         });
+
       } else if (message.type === 'userLeft') {
-        this.setState({
-          users: message.users,
+        console.log('User has left the chat.');
+
+        //TODO
+
+        let m = {username: null, message: `someone(?) has left the chat.`};
+
+        this.setState((state) => {
+          let mess = state.messages.slice();
+          mess.push(m);
+
+          return {
+            messages: mess,
+            users: message.users,
+          };
         });
+
+
       } else if (message.type === 'message') {
+
         let m = {username: message.username, message: message.content};
-        console.log('message:')
-        console.log(m);
+
         this.setState((state) => {
           let mess = state.messages.slice();
           mess.push(m);
           return {messages: mess};
         });
+
       }
     };
   }
@@ -108,9 +133,12 @@ function UserList(props) {
 }
 
 function MessageBoard(props) {
-  let messages = props.messagesList.map((m) =>     
-    <li>{'<'+m.username+'>'+' '+m.message}</li>
+
+  let messages = props.messagesList.map(m =>
+    <li>{m.username==null? m.message :'<'+m.username+'>' + ' ' + m.message}</li>
   );
+
+
   return (
     <div>
       <ul id="messages">

@@ -50,20 +50,41 @@ var Chat = function (_React$Component) {
           _this2.setState({ showUsernamePrompt: false,
             username: message.username });
         } else if (message.type === 'userJoined') {
-          _this2.setState({
-            users: message.users
-          });
-        } else if (message.type === 'userLeft') {
-          _this2.setState({
-            users: message.users
-          });
-        } else if (message.type === 'message') {
-          var m = { username: message.username, message: message.content };
-          console.log('message:');
-          console.log(m);
+          console.log('New user has joined the chat.');
+
+          var m = { username: null, message: 'someone(?) has joined the chat.' };
+
           _this2.setState(function (state) {
             var mess = state.messages.slice();
             mess.push(m);
+            return {
+              messages: mess,
+              users: message.users
+            };
+          });
+        } else if (message.type === 'userLeft') {
+          console.log('User has left the chat.');
+
+          //TODO
+
+          var _m = { username: null, message: 'someone(?) has left the chat.' };
+
+          _this2.setState(function (state) {
+            var mess = state.messages.slice();
+            mess.push(_m);
+
+            return {
+              messages: mess,
+              users: message.users
+            };
+          });
+        } else if (message.type === 'message') {
+
+          var _m2 = { username: message.username, message: message.content };
+
+          _this2.setState(function (state) {
+            var mess = state.messages.slice();
+            mess.push(_m2);
             return { messages: mess };
           });
         }
@@ -136,13 +157,15 @@ function UserList(props) {
 }
 
 function MessageBoard(props) {
+
   var messages = props.messagesList.map(function (m) {
     return React.createElement(
       'li',
       null,
-      '<' + m.username + '>' + ' ' + m.message
+      m.username == null ? m.message : '<' + m.username + '>' + ' ' + m.message
     );
   });
+
   return React.createElement(
     'div',
     null,
