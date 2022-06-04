@@ -10,6 +10,7 @@ class Chat extends React.Component {
       users: [],
       messages: [],
       inputValue: '',
+      error: false,
     };
     this.handleUsernameSubmit = this.handleUsernameSubmit.bind(this);
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
@@ -33,6 +34,10 @@ class Chat extends React.Component {
           showUsernamePrompt: false,
           username: message.username,
           users: message.users,
+        });
+      } else if (message.type === 'error') {
+        this.setState({
+          error: message.text,
         });
       } else if (message.type === 'userJoined') {
         console.log('New user has joined the chat.');
@@ -103,9 +108,20 @@ class Chat extends React.Component {
 
   render() {
     if (this.state.showUsernamePrompt) {
-      return (
-        <UsernameForm handleUsernameSubmit={this.handleUsernameSubmit}/>
-      );
+      if (this.state.error) {
+        return (
+          <div>
+            <UsernameForm handleUsernameSubmit={this.handleUsernameSubmit}/>
+            <ErrorNotification text={this.state.error}/>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <UsernameForm handleUsernameSubmit={this.handleUsernameSubmit}/>
+          </div>
+        );
+      }
     }
     else {
       return (
@@ -158,6 +174,14 @@ function MessageInput(props) {
                value={props.value} />
       </form>
     </div>
+  );
+}
+
+function ErrorNotification(props) {
+  return (
+    <p>
+      Error: {props.text}.
+    </p>
   );
 }
 

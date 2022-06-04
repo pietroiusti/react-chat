@@ -65,7 +65,7 @@ wss.on('connection', (ws) => {
       if (usernameExists(req.username)) { //TODO: further conditions?
 	ws.send(JSON.stringify({
 	  type: 'error',
-	  message: 'Username already taken',
+	  text: 'Username already taken',
 	}));
       } else {
 	joinChat(ws, req.username);

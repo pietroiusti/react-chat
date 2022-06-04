@@ -22,7 +22,8 @@ var Chat = function (_React$Component) {
       username: '',
       users: [],
       messages: [],
-      inputValue: ''
+      inputValue: '',
+      error: false
     };
     _this.handleUsernameSubmit = _this.handleUsernameSubmit.bind(_this);
     _this.handleMessageSubmit = _this.handleMessageSubmit.bind(_this);
@@ -51,6 +52,10 @@ var Chat = function (_React$Component) {
             showUsernamePrompt: false,
             username: message.username,
             users: message.users
+          });
+        } else if (message.type === 'error') {
+          _this2.setState({
+            error: message.text
           });
         } else if (message.type === 'userJoined') {
           console.log('New user has joined the chat.');
@@ -121,7 +126,20 @@ var Chat = function (_React$Component) {
     key: 'render',
     value: function render() {
       if (this.state.showUsernamePrompt) {
-        return React.createElement(UsernameForm, { handleUsernameSubmit: this.handleUsernameSubmit });
+        if (this.state.error) {
+          return React.createElement(
+            'div',
+            null,
+            React.createElement(UsernameForm, { handleUsernameSubmit: this.handleUsernameSubmit }),
+            React.createElement(ErrorNotification, { text: this.state.error })
+          );
+        } else {
+          return React.createElement(
+            'div',
+            null,
+            React.createElement(UsernameForm, { handleUsernameSubmit: this.handleUsernameSubmit })
+          );
+        }
       } else {
         return React.createElement(
           'div',
@@ -191,6 +209,16 @@ function MessageInput(props) {
         },
         value: props.value })
     )
+  );
+}
+
+function ErrorNotification(props) {
+  return React.createElement(
+    'p',
+    null,
+    'Error: ',
+    props.text,
+    '.'
   );
 }
 
