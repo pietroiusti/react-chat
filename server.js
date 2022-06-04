@@ -89,16 +89,19 @@ function joinChat(ws, username) {
     ws.send(JSON.stringify({
       type: 'usernameConnectionSuccess',
       username: username,
+      users: users.map(u=>u.username),
     }));
     
     console.log('users:');
     console.log(users.map(u=>u.username));    
 
     users.forEach(u => {
-      u.ws.send(JSON.stringify({
-        type: 'userJoined',
-        users: users.map(u=>u.username),
-      }));
+      if (u.username !== username) {
+        u.ws.send(JSON.stringify({
+          type: 'userJoined',
+          users: users.map(u=>u.username),
+        }));
+      }
     });
     
   } catch(e) {

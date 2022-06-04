@@ -47,8 +47,11 @@ var Chat = function (_React$Component) {
         console.log(message);
 
         if (message.type === 'usernameConnectionSuccess') {
-          _this2.setState({ showUsernamePrompt: false,
-            username: message.username });
+          _this2.setState({
+            showUsernamePrompt: false,
+            username: message.username,
+            users: message.users
+          });
         } else if (message.type === 'userJoined') {
           console.log('New user has joined the chat.');
 

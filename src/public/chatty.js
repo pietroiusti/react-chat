@@ -29,8 +29,11 @@ class Chat extends React.Component {
       console.log(message);
 
       if (message.type === 'usernameConnectionSuccess') {
-        this.setState({showUsernamePrompt: false,
-                       username: message.username});
+        this.setState({
+          showUsernamePrompt: false,
+          username: message.username,
+          users: message.users,
+        });
       } else if (message.type === 'userJoined') {
         console.log('New user has joined the chat.');
 
