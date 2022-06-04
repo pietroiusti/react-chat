@@ -125,17 +125,16 @@ function message(message, username) {
 }
 
 function disconnect(ws) {  
-  // barbarically inefficient but getting the job done for now...
-  let userLeaving = users.filter( (u) => u.ws === ws ); // TODO:
-                                                        // notify with
-                                                        // the name of
-                                                        // user leaving!
+  // Probably barbarically inefficient but getting the job done for now...
+  let userLeaving = users.filter( (u) => u.ws === ws )[0];
+
   users = users.filter( (u) => !(u.ws === ws) ); // remove user from users
 
   users.forEach((u) => {
     u.ws.send(JSON.stringify({
       type: 'userLeft',
       users: users.map(u=>u.username),
+      username: userLeaving.username,
     }));
   });
 }

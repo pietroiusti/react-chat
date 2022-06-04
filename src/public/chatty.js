@@ -51,9 +51,7 @@ class Chat extends React.Component {
       } else if (message.type === 'userLeft') {
         console.log('User has left the chat.');
 
-        //TODO
-
-        let m = {username: null, message: `someone(?) has left the chat.`};
+        let m = {username: null, message: `${message.username} has left the chat.`};
 
         this.setState((state) => {
           let mess = state.messages.slice();

@@ -68,9 +68,7 @@ var Chat = function (_React$Component) {
         } else if (message.type === 'userLeft') {
           console.log('User has left the chat.');
 
-          //TODO
-
-          var _m = { username: null, message: 'someone(?) has left the chat.' };
+          var _m = { username: null, message: message.username + ' has left the chat.' };
 
           _this2.setState(function (state) {
             var mess = state.messages.slice();
