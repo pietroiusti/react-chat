@@ -37,7 +37,7 @@ class Chat extends React.Component {
       } else if (message.type === 'userJoined') {
         console.log('New user has joined the chat.');
 
-        let m = {username: null, message: `someone(?) has joined the chat.`};
+        let m = {username: null, message: `${message.username} has joined the chat.`};
 
         this.setState((state) => {
           let mess = state.messages.slice();

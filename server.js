@@ -100,6 +100,7 @@ function joinChat(ws, username) {
         u.ws.send(JSON.stringify({
           type: 'userJoined',
           users: users.map(u=>u.username),
+          username: username,
         }));
       }
     });

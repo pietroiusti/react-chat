@@ -55,7 +55,7 @@ var Chat = function (_React$Component) {
         } else if (message.type === 'userJoined') {
           console.log('New user has joined the chat.');
 
-          var m = { username: null, message: 'someone(?) has joined the chat.' };
+          var m = { username: null, message: message.username + ' has joined the chat.' };
 
           _this2.setState(function (state) {
             var mess = state.messages.slice();
