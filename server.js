@@ -77,7 +77,11 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', (e) => {
-    disconnect(ws);
+    try {
+      disconnect(ws);
+    } catch(e) {
+      console.error(e);
+    }
   });
 });
 
@@ -130,13 +134,16 @@ function disconnect(ws) {
 
   users = users.filter( (u) => !(u.ws === ws) ); // remove user from users
 
-  users.forEach((u) => {
-    u.ws.send(JSON.stringify({
-      type: 'userLeft',
-      users: users.map(u=>u.username),
-      username: userLeaving.username,
-    }));
-  });
+  if (userLeaving) { // if ws client actually joined the chat with a username
+    users.forEach((u) => {
+      u.ws.send(JSON.stringify({
+        type: 'userLeft',
+        users: users.map(u=>u.username),
+        username: userLeaving.username,
+      }));
+    });
+  }
+  
 }
 
 function usernameExists(username) {
