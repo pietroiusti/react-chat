@@ -169,7 +169,7 @@ function UserList(props) {
     null,
     React.createElement(
       'ul',
-      { id: 'userlist' },
+      { id: 'userList' },
       users
     )
   );

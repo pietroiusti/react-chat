@@ -142,7 +142,7 @@ function UserList(props) {
   );
   return (
     <div>
-      <ul id="userlist">
+      <ul id="userList">
         {users}
       </ul>
     </div>
