@@ -125,7 +125,8 @@ class Chat extends React.Component {
     }
     else {
       return (
-        <div>
+        <div id="chatContainer">
+          <Header />
           <UserList users={this.state.users} />
           <MessageBoard messagesList={this.state.messages} />
           <MessageInput value={this.state.inputValue} handleChange={this.handleInputChange}
@@ -136,12 +137,20 @@ class Chat extends React.Component {
   }
 }
 
+function Header (props) {
+  return (
+    <div id="header">
+      A Chat in React
+    </div>
+  );
+}
+
 function UserList(props) {
   let users = props.users.map((u) =>
     <li>{u}</li>
   );
   return (
-    <div>
+    <div id="userListDiv">
       <ul id="userList">
         {users}
       </ul>
@@ -157,7 +166,7 @@ function MessageBoard(props) {
 
 
   return (
-    <div>
+    <div id="messagesDiv">
       <ul id="messages">
         {messages}
       </ul>
@@ -167,7 +176,7 @@ function MessageBoard(props) {
 
 function MessageInput(props) {
   return (
-    <div>
+    <div id="messageInputDiv">
       <form onSubmit={props.handleSubmit}>
         <input id="messageInput" autocomplete="off"
                autoFocus="true" onChange={(e)=>props.handleChange(e)}

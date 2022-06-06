@@ -143,7 +143,8 @@ var Chat = function (_React$Component) {
       } else {
         return React.createElement(
           'div',
-          null,
+          { id: 'chatContainer' },
+          React.createElement(Header, null),
           React.createElement(UserList, { users: this.state.users }),
           React.createElement(MessageBoard, { messagesList: this.state.messages }),
           React.createElement(MessageInput, { value: this.state.inputValue, handleChange: this.handleInputChange,
@@ -156,6 +157,14 @@ var Chat = function (_React$Component) {
   return Chat;
 }(React.Component);
 
+function Header(props) {
+  return React.createElement(
+    'div',
+    { id: 'header' },
+    'A Chat in React'
+  );
+}
+
 function UserList(props) {
   var users = props.users.map(function (u) {
     return React.createElement(
@@ -166,7 +175,7 @@ function UserList(props) {
   });
   return React.createElement(
     'div',
-    null,
+    { id: 'userListDiv' },
     React.createElement(
       'ul',
       { id: 'userList' },
@@ -187,7 +196,7 @@ function MessageBoard(props) {
 
   return React.createElement(
     'div',
-    null,
+    { id: 'messagesDiv' },
     React.createElement(
       'ul',
       { id: 'messages' },
@@ -199,7 +208,7 @@ function MessageBoard(props) {
 function MessageInput(props) {
   return React.createElement(
     'div',
-    null,
+    { id: 'messageInputDiv' },
     React.createElement(
       'form',
       { onSubmit: props.handleSubmit },
