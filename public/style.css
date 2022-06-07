@@ -70,3 +70,9 @@ input:focus {
 #usernameInput {
   width: 50%;
 }
+
+ul {
+  list-style-type: none;
+  margin: 5px;
+  padding: 5px;
+}
