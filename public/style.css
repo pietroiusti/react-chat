@@ -76,3 +76,7 @@ ul {
   margin: 5px;
   padding: 5px;
 }
+
+#loadingDots {
+  margin-top: 25px;
+}

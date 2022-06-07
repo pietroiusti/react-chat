@@ -23,7 +23,10 @@ var Chat = function (_React$Component) {
       users: [],
       messages: [],
       inputValue: '',
-      error: false
+      error: false,
+      loading: false,
+      loadingState: 0,
+      loadingInterval: null
     };
     _this.handleUsernameSubmit = _this.handleUsernameSubmit.bind(_this);
     _this.handleMessageSubmit = _this.handleMessageSubmit.bind(_this);
@@ -48,13 +51,19 @@ var Chat = function (_React$Component) {
         console.log(message);
 
         if (message.type === 'usernameConnectionSuccess') {
+          clearInterval(_this2.state.loadingInterval);
           _this2.setState({
+            loadingInterval: null,
             showUsernamePrompt: false,
             username: message.username,
             users: message.users
           });
         } else if (message.type === 'error') {
+          clearInterval(_this2.state.loadingInterval);
           _this2.setState({
+            loading: false,
+            loadingState: 0,
+            loadingInterval: null,
             error: message.text
           });
         } else if (message.type === 'userJoined') {
@@ -117,10 +126,29 @@ var Chat = function (_React$Component) {
   }, {
     key: 'handleUsernameSubmit',
     value: function handleUsernameSubmit(username) {
-      this.ws.send(JSON.stringify({
-        type: 'joinChat',
-        username: username
-      }));
+      var _this3 = this;
+
+      this.setState({
+        loading: true,
+        error: false
+      });
+
+      var interval = setInterval(function () {
+        console.log('foo');
+        if (_this3.state.loadingState !== 3) {
+          _this3.setState({ loadingState: _this3.state.loadingState + 1 });
+        } else if (_this3.state.loadingState === 3) {
+          _this3.setState({ loadingState: 0 });
+        }
+      }, 300);
+      this.setState({ loadingInterval: interval });
+
+      setTimeout(function () {
+        _this3.ws.send(JSON.stringify({
+          type: 'joinChat',
+          username: username
+        }));
+      }, 3000);
     }
   }, {
     key: 'render',
@@ -131,13 +159,15 @@ var Chat = function (_React$Component) {
             'div',
             { id: 'usernameFormContainer' },
             React.createElement(UsernameForm, { handleUsernameSubmit: this.handleUsernameSubmit }),
-            React.createElement(ErrorNotification, { text: this.state.error })
+            React.createElement(ErrorNotification, { text: this.state.error }),
+            React.createElement(LoadingDots, { value: this.state.loading, loadingState: this.state.loadingState })
           );
         } else {
           return React.createElement(
             'div',
             { id: 'usernameFormContainer' },
-            React.createElement(UsernameForm, { handleUsernameSubmit: this.handleUsernameSubmit })
+            React.createElement(UsernameForm, { handleUsernameSubmit: this.handleUsernameSubmit }),
+            React.createElement(LoadingDots, { value: this.state.loading, loadingState: this.state.loadingState })
           );
         }
       } else {
@@ -156,6 +186,38 @@ var Chat = function (_React$Component) {
 
   return Chat;
 }(React.Component);
+
+function LoadingDots(props) {
+  if (props.value === true) {
+    if (props.loadingState === 0) {
+      return React.createElement(
+        'div',
+        { id: 'loadingDots' },
+        '  '
+      );
+    } else if (props.loadingState === 1) {
+      return React.createElement(
+        'div',
+        { id: 'loadingDots' },
+        ' . '
+      );
+    } else if (props.loadingState === 2) {
+      return React.createElement(
+        'div',
+        { id: 'loadingDots' },
+        ' .  . '
+      );
+    } else if (props.loadingState === 3) {
+      return React.createElement(
+        'div',
+        { id: 'loadingDots' },
+        ' .  .  . '
+      );
+    }
+  } else {
+    return null;
+  }
+}
 
 function Header(props) {
   return React.createElement(
@@ -237,14 +299,14 @@ var UsernameForm = function (_React$Component2) {
   function UsernameForm(props) {
     _classCallCheck(this, UsernameForm);
 
-    var _this3 = _possibleConstructorReturn(this, (UsernameForm.__proto__ || Object.getPrototypeOf(UsernameForm)).call(this, props));
+    var _this4 = _possibleConstructorReturn(this, (UsernameForm.__proto__ || Object.getPrototypeOf(UsernameForm)).call(this, props));
 
-    _this3.state = {
+    _this4.state = {
       value: ''
     };
-    _this3.handleChange = _this3.handleChange.bind(_this3);
-    _this3.handleKeyUp = _this3.handleKeyUp.bind(_this3);
-    return _this3;
+    _this4.handleChange = _this4.handleChange.bind(_this4);
+    _this4.handleKeyUp = _this4.handleKeyUp.bind(_this4);
+    return _this4;
   }
 
   _createClass(UsernameForm, [{

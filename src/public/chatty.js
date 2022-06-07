@@ -11,6 +11,9 @@ class Chat extends React.Component {
       messages: [],
       inputValue: '',
       error: false,
+      loading: false,
+      loadingState: 0,
+      loadingInterval: null,
     };
     this.handleUsernameSubmit = this.handleUsernameSubmit.bind(this);
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
@@ -30,13 +33,19 @@ class Chat extends React.Component {
       console.log(message);
 
       if (message.type === 'usernameConnectionSuccess') {
+        clearInterval(this.state.loadingInterval);
         this.setState({
+          loadingInterval: null,
           showUsernamePrompt: false,
           username: message.username,
           users: message.users,
         });
       } else if (message.type === 'error') {
+        clearInterval(this.state.loadingInterval);
         this.setState({
+          loading: false,
+          loadingState: 0,
+          loadingInterval: null,
           error: message.text,
         });
       } else if (message.type === 'userJoined') {
@@ -100,10 +109,27 @@ class Chat extends React.Component {
   }
 
   handleUsernameSubmit(username) {
-    this.ws.send(JSON.stringify({
-      type: 'joinChat',
-      username: username,
-    }));
+    this.setState({
+      loading: true,
+      error: false,
+    });
+    
+    let interval = setInterval(() => {
+      console.log('foo');
+      if (this.state.loadingState !== 3) {
+        this.setState({loadingState: this.state.loadingState + 1});
+      } else if (this.state.loadingState === 3) {
+        this.setState({loadingState: 0});
+      }
+    }, 300);
+    this.setState({loadingInterval:  interval});
+    
+    setTimeout(() => {
+      this.ws.send(JSON.stringify({
+        type: 'joinChat',
+        username: username,
+      }));
+    }, 3000);
   }
 
   render() {
@@ -113,12 +139,14 @@ class Chat extends React.Component {
           <div id="usernameFormContainer">
             <UsernameForm handleUsernameSubmit={this.handleUsernameSubmit}/>
             <ErrorNotification text={this.state.error}/>
+            <LoadingDots value={this.state.loading} loadingState={this.state.loadingState} />
           </div>
         );
       } else {
         return (
           <div id="usernameFormContainer">
             <UsernameForm handleUsernameSubmit={this.handleUsernameSubmit}/>
+            <LoadingDots value={this.state.loading} loadingState={this.state.loadingState} />
           </div>
         );
       }
@@ -136,6 +164,31 @@ class Chat extends React.Component {
     }
   }
 }
+
+function LoadingDots(props) {
+  if (props.value === true) {
+    if (props.loadingState === 0) {
+      return (
+        <div id="loadingDots">  </div>
+      );
+    } else if (props.loadingState === 1) {
+      return (
+        <div id="loadingDots"> . </div>
+      );
+    } else if (props.loadingState === 2) {
+      return (
+        <div id="loadingDots"> .  . </div>
+      );
+    } else if (props.loadingState === 3) {
+      return (
+        <div id="loadingDots"> .  .  . </div>
+      );
+    }
+  } else {
+    return null;
+  }
+}
+
 
 function Header (props) {
   return (
