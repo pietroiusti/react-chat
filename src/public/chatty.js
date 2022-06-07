@@ -110,14 +110,14 @@ class Chat extends React.Component {
     if (this.state.showUsernamePrompt) {
       if (this.state.error) {
         return (
-          <div>
+          <div id="usernameFormContainer">
             <UsernameForm handleUsernameSubmit={this.handleUsernameSubmit}/>
             <ErrorNotification text={this.state.error}/>
           </div>
         );
       } else {
         return (
-          <div>
+          <div id="usernameFormContainer">
             <UsernameForm handleUsernameSubmit={this.handleUsernameSubmit}/>
           </div>
         );

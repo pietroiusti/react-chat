@@ -62,3 +62,11 @@ input:focus {
   border: 2px solid #04ff00;
   box-shadow: 0 0 10px #04ff00;
 }
+
+#usernameFormContainer {
+  text-align: center;
+}
+
+#usernameInput {
+  width: 50%;
+}

@@ -129,14 +129,14 @@ var Chat = function (_React$Component) {
         if (this.state.error) {
           return React.createElement(
             'div',
-            null,
+            { id: 'usernameFormContainer' },
             React.createElement(UsernameForm, { handleUsernameSubmit: this.handleUsernameSubmit }),
             React.createElement(ErrorNotification, { text: this.state.error })
           );
         } else {
           return React.createElement(
             'div',
-            null,
+            { id: 'usernameFormContainer' },
             React.createElement(UsernameForm, { handleUsernameSubmit: this.handleUsernameSubmit })
           );
         }
