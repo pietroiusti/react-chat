@@ -50,5 +50,15 @@ body {
 
 input {
   width: 100%;
+  background-color: black;
+  color: #04ff00;
   border-radius: 5px;
+  border: 2px solid #04ff00;
+  font-family: 'VT323', monospace;
+}
+
+input:focus {
+  outline: none !important;
+  border: 2px solid #04ff00;
+  box-shadow: 0 0 10px #04ff00;
 }

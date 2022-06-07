@@ -212,7 +212,7 @@ function MessageInput(props) {
     React.createElement(
       'form',
       { onSubmit: props.handleSubmit },
-      React.createElement('input', { id: 'messageInput', autocomplete: 'off',
+      React.createElement('input', { type: 'text', id: 'messageInput', autocomplete: 'off',
         autoFocus: 'true', onChange: function onChange(e) {
           return props.handleChange(e);
         },

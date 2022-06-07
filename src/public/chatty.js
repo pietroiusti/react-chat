@@ -178,7 +178,7 @@ function MessageInput(props) {
   return (
     <div id="messageInputDiv">
       <form onSubmit={props.handleSubmit}>
-        <input id="messageInput" autocomplete="off"
+        <input type="text" id="messageInput" autocomplete="off"
                autoFocus="true" onChange={(e)=>props.handleChange(e)}
                value={props.value} />
       </form>
