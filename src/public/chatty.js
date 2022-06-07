@@ -204,6 +204,21 @@ class UsernameForm extends React.Component {
     this.handleKeyUp = this.handleKeyUp.bind(this);
   }
 
+  componentDidMount() { // TODO: refactor
+      let i = 0;
+      let speed = 80;
+      let txt = "Type your username";
+
+      function typeWriter() {
+        if (i < txt.length) {
+          document.querySelector("#usernameInput").placeholder += txt.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+    typeWriter();
+  }
+  
   handleChange(event) {
     this.setState({value: event.target.value});
   }
@@ -217,7 +232,7 @@ class UsernameForm extends React.Component {
   render() {
     return (
       <input autoFocus="true" type="text"
-             placeholder="username" id="usernameInput"
+             id="usernameInput"
              onChange={this.handleChange}
              onKeyUp={this.handleKeyUp}/>
     );

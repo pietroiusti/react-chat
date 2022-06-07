@@ -248,6 +248,23 @@ var UsernameForm = function (_React$Component2) {
   }
 
   _createClass(UsernameForm, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      // TODO: refactor
+      var i = 0;
+      var speed = 80;
+      var txt = "Type your username";
+
+      function typeWriter() {
+        if (i < txt.length) {
+          document.querySelector("#usernameInput").placeholder += txt.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+      typeWriter();
+    }
+  }, {
     key: 'handleChange',
     value: function handleChange(event) {
       this.setState({ value: event.target.value });
@@ -261,7 +278,7 @@ var UsernameForm = function (_React$Component2) {
     key: 'render',
     value: function render() {
       return React.createElement('input', { autoFocus: 'true', type: 'text',
-        placeholder: 'username', id: 'usernameInput',
+        id: 'usernameInput',
         onChange: this.handleChange,
         onKeyUp: this.handleKeyUp });
     }
