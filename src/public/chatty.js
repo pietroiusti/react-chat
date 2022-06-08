@@ -38,7 +38,6 @@ class Chat extends React.Component {
 
         return {
           messages: mess,
-          users: message.users,
         };
       });
     };

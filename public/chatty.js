@@ -55,8 +55,7 @@ var Chat = function (_React$Component) {
           mess.push(m);
 
           return {
-            messages: mess,
-            users: message.users
+            messages: mess
           };
         });
       };
