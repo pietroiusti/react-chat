@@ -45,6 +45,22 @@ var Chat = function (_React$Component) {
         console.log('WebSocket Client Connected');
       };
 
+      this.ws.onclose = function () {
+        console.log('WebSocket connection closed.');
+
+        var m = { username: null, message: '### You have lost connection to the chat. ###' };
+
+        _this2.setState(function (state) {
+          var mess = state.messages.slice();
+          mess.push(m);
+
+          return {
+            messages: mess,
+            users: message.users
+          };
+        });
+      };
+
       this.ws.onmessage = function (e) {
         var message = JSON.parse(e.data);
         console.log('Message Received:');

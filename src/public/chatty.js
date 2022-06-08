@@ -25,7 +25,23 @@ class Chat extends React.Component {
     
     this.ws.onopen = () => {
       console.log('WebSocket Client Connected');
-    };    
+    };
+
+    this.ws.onclose = () => {
+      console.log('WebSocket connection closed.');
+
+      let m = {username: null, message: '### You have lost connection to the chat. ###'};
+
+      this.setState((state) => {
+        let mess = state.messages.slice();
+        mess.push(m);
+
+        return {
+          messages: mess,
+          users: message.users,
+        };
+      });
+    };
 
     this.ws.onmessage = (e) => {
       let message = JSON.parse(e.data);
