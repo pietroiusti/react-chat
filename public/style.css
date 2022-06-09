@@ -43,6 +43,8 @@ body {
       border-radius: 12px; } }
 
 #messagesDiv {
+  display: flex;
+  flex-direction: column-reverse;
   grid-area: messages;
   height: 500px;
   overflow: auto;
