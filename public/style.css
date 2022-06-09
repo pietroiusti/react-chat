@@ -4,80 +4,103 @@ body {
   color: #04ff00;
   width: 80%;
   max-width: 900px;
-  margin: 2em auto;
-}
-
-
+  margin: 2em auto; }
 
 #chatContainer {
   display: grid;
-  grid-template-areas:
-    "header header"
-    "userList messages"
-    "userList footer";
+  grid-template-areas: "header header" "userList messages" "userList footer";
   grid-template-columns: 0.7fr 3fr;
   gap: 20px;
-  height: 600px;
-}
+  height: 600px; }
 
 #header {
-  border-radius: 5px;
   padding: 10px;
   grid-area: header;
   text-align: center;
-  border-radius: 5px;
-  border: 2px solid #04ff00;
-}
+  border-style: solid;
+  border-width: 2px;
+  border-color: #04ff00;
+  border-image-slice: 4;
+  border-image-width: 2;
+  border-image-outset: 0;
+  border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><path d='M2 2h2v2H2zM4 0h2v2H4zM10 4h2v2h-2zM0 4h2v2H0zM6 0h2v2H6zM8 2h2v2H8zM8 8h2v2H8zM6 10h2v2H6zM0 6h2v2H0zM10 6h2v2h-2zM4 10h2v2H4zM2 8h2v2H2z' fill='%2304ff00' /></svg>"); }
+  @supports (border-image-source: none) {
+    #header {
+      border-radius: 12px; } }
 
 #userListDiv {
   grid-area: userList;
   overflow: auto;
-  border-radius: 5px;
-  border: 2px solid #04ff00;
-}
+  border-style: solid;
+  border-width: 2px;
+  border-color: #04ff00;
+  border-image-slice: 4;
+  border-image-width: 2;
+  border-image-outset: 0;
+  border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><path d='M2 2h2v2H2zM4 0h2v2H4zM10 4h2v2h-2zM0 4h2v2H0zM6 0h2v2H6zM8 2h2v2H8zM8 8h2v2H8zM6 10h2v2H6zM0 6h2v2H0zM10 6h2v2h-2zM4 10h2v2H4zM2 8h2v2H2z' fill='%2304ff00' /></svg>"); }
+  @supports (border-image-source: none) {
+    #userListDiv {
+      border-radius: 12px; } }
 
 #messagesDiv {
   grid-area: messages;
   height: 500px;
   overflow: auto;
-  border-radius: 5px;
-  border: 2px solid #04ff00;
-}
+  border-style: solid;
+  border-width: 2px;
+  border-color: #04ff00;
+  border-image-slice: 4;
+  border-image-width: 2;
+  border-image-outset: 0;
+  border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><path d='M2 2h2v2H2zM4 0h2v2H4zM10 4h2v2h-2zM0 4h2v2H0zM6 0h2v2H6zM8 2h2v2H8zM8 8h2v2H8zM6 10h2v2H6zM0 6h2v2H0zM10 6h2v2h-2zM4 10h2v2H4zM2 8h2v2H2z' fill='%2304ff00' /></svg>"); }
+  @supports (border-image-source: none) {
+    #messagesDiv {
+      border-radius: 12px; } }
 
 #messageInputDiv {
-  grid-area: footer;
-}
+  grid-area: footer; }
 
 input {
   width: 100%;
   background-color: black;
   color: #04ff00;
-  border-radius: 5px;
-  border: 2px solid #04ff00;
   font-family: 'VT323', monospace;
-  box-sizing:border-box;
-}
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #04ff00;
+  border-image-slice: 4;
+  border-image-width: 2;
+  border-image-outset: 0;
+  border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><path d='M2 2h2v2H2zM4 0h2v2H4zM10 4h2v2h-2zM0 4h2v2H0zM6 0h2v2H6zM8 2h2v2H8zM8 8h2v2H8zM6 10h2v2H6zM0 6h2v2H0zM10 6h2v2h-2zM4 10h2v2H4zM2 8h2v2H2z' fill='%2304ff00' /></svg>"); }
+  @supports (border-image-source: none) {
+    input {
+      border-radius: 12px; } }
 
 input:focus {
   outline: none !important;
-  border: 2px solid #04ff00;
   box-shadow: 0 0 10px #04ff00;
-}
+  border-style: solid;
+  border-width: 2px;
+  border-color: #04ff00;
+  border-image-slice: 4;
+  border-image-width: 2;
+  border-image-outset: 0;
+  border-image-source: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><path d='M2 2h2v2H2zM4 0h2v2H4zM10 4h2v2h-2zM0 4h2v2H0zM6 0h2v2H6zM8 2h2v2H8zM8 8h2v2H8zM6 10h2v2H6zM0 6h2v2H0zM10 6h2v2h-2zM4 10h2v2H4zM2 8h2v2H2z' fill='%2304ff00' /></svg>"); }
+  @supports (border-image-source: none) {
+    input:focus {
+      border-radius: 12px; } }
 
 #usernameFormContainer {
-  text-align: center;
-}
+  text-align: center; }
 
 #usernameInput {
-  width: 50%;
-}
+  width: 50%; }
 
 ul {
   list-style-type: none;
   margin: 5px;
-  padding: 5px;
-}
+  padding: 5px; }
 
 #loadingDots {
-  margin-top: 25px;
-}
+  margin-top: 25px; }

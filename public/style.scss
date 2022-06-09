@@ -1,0 +1,113 @@
+@import "../node_modules/pixel-borders/src/styles/pixel-borders/pixel-borders-mixins";
+
+body {
+  font-family: 'VT323', monospace;
+  background-color: black;
+  color: #04ff00;
+  width: 80%;
+  max-width: 900px;
+  margin: 2em auto;
+}
+
+#chatContainer {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "userList messages"
+    "userList footer";
+  grid-template-columns: 0.7fr 3fr;
+  gap: 20px;
+  height: 600px;
+}
+
+#header {
+  // border-radius: 5px;
+  padding: 10px;
+  grid-area: header;
+  text-align: center;
+  // border-radius: 5px;
+  // border: 2px solid #04ff00;
+  @include pixel-borders(
+    $corner-size: 2,
+    $border-size: 2px,
+    $border-color: #04ff00,
+    $border-inset-color: false
+  );
+}
+
+#userListDiv {
+  grid-area: userList;
+  overflow: auto;
+  // border-radius: 5px;
+  // border: 2px solid #04ff00;
+  @include pixel-borders(
+    $corner-size: 2,
+    $border-size: 2px,
+    $border-color: #04ff00,
+    $border-inset-color: false
+  );
+}
+
+#messagesDiv {
+  grid-area: messages;
+  height: 500px;
+  overflow: auto;
+  // border-radius: 5px;
+  // border: 2px solid #04ff00;
+  @include pixel-borders(
+    $corner-size: 2,
+    $border-size: 2px,
+    $border-color: #04ff00,
+    $border-inset-color: false
+  );
+}
+
+#messageInputDiv {
+  grid-area: footer;
+}
+
+input {
+  width: 100%;
+  background-color: black;
+  color: #04ff00;
+  // border-radius: 5px;
+  // border: 2px solid #04ff00;
+  font-family: 'VT323', monospace;
+  box-sizing: border-box;
+  @include pixel-borders(
+    $corner-size: 2,
+    $border-size: 2px,
+    $border-color: #04ff00,
+    $border-inset-color: false
+  );
+}
+
+input:focus {
+  outline: none !important;
+  // border: 2px solid #04ff00;
+  box-shadow: 0 0 10px #04ff00;
+  @include pixel-borders(
+    $corner-size: 2,
+    $border-size: 2px,
+    $border-color: #04ff00,
+    $border-inset-color: false
+  );
+}
+
+#usernameFormContainer {
+  text-align: center;
+}
+
+#usernameInput {
+  width: 50%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 5px;
+  padding: 5px;
+}
+
+#loadingDots {
+  margin-top: 25px;
+}
