@@ -85,6 +85,16 @@ body {
 #messagesDiv::-webkit-scrollbar-thumb {
   background: #04ff00; }
 
+/* webkit-scrollar does not work on firefox... */
+/* the following rules apply to firefox only */
+@-moz-document url-prefix() {
+  #userListDiv {
+    scrollbar-width: 8px;
+    scrollbar-color: #04ff00 #000; }
+  #messagesDiv {
+    scrollbar-width: 8px;
+    scrollbar-color: #04ff00 #000; } }
+
 #messageInputDiv {
   grid-area: footer; }
 
