@@ -48,9 +48,27 @@ body {
   );
 }
 
+/* width */
+#userListDiv::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+/* Track */
+#userListDiv::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #04ff00;
+}
+
+/* Handle */
+#userListDiv::-webkit-scrollbar-thumb {
+  background: #04ff00;
+}
+
 #messagesDiv {
   display:flex;
   flex-direction: column-reverse;
+
+  /*scrollbar-color: #04ff00 black;*/
 
   grid-area: messages;
   height: 500px;
@@ -63,6 +81,21 @@ body {
     $border-color: #04ff00,
     $border-inset-color: false
   );
+}
+
+/* width */
+#messagesDiv::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+#messagesDiv::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #04ff00;
+}
+
+/* Handle */
+#messagesDiv::-webkit-scrollbar-thumb {
+  background: #04ff00;
 }
 
 #messageInputDiv {
