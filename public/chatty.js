@@ -8,6 +8,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var welcome_message = '\n\n                     __          __  _\n                     \\ \\        / / | |\n                      \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___\n                       \\ \\/  \\/ / _ \\ |/ __/ _ \\| \'_ ` _ \\ / _ \\\n                        \\  /\\  /  __/ | (_| (_) | | | | | |  __/\n                         \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|\n\n\n\n\n\n\n\n\n\n';
+
 var Chat = function (_React$Component) {
   _inherits(Chat, _React$Component);
 
@@ -21,7 +23,7 @@ var Chat = function (_React$Component) {
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
       users: [],
-      messages: [],
+      messages: [{ art: true, message: welcome_message }],
       inputValue: '',
       error: false,
       loading: false,
@@ -264,11 +266,23 @@ function UserList(props) {
 function MessageBoard(props) {
 
   var messages = props.messagesList.map(function (m) {
-    return React.createElement(
-      'li',
-      null,
-      m.username == null ? m.message : '<' + m.username + '>' + ' ' + m.message
-    );
+    if (m.art) {
+      return React.createElement(
+        'li',
+        null,
+        React.createElement(
+          'div',
+          { 'class': 'art' },
+          m.message
+        )
+      );
+    } else {
+      return React.createElement(
+        'li',
+        null,
+        m.username == null ? m.message : '<' + m.username + '>' + ' ' + m.message
+      );
+    }
   });
 
   return React.createElement(

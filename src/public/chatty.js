@@ -1,6 +1,25 @@
 "use strict";
 
-class Chat extends React.Component {
+let welcome_message = `
+
+                     __          __  _
+                     \\ \\        / / | |
+                      \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___
+                       \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ \` _ \\ / _ \\
+                        \\  /\\  /  __/ | (_| (_) | | | | | |  __/
+                         \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|
+
+
+
+
+
+
+
+
+
+`;
+
+  class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8,7 +27,7 @@ class Chat extends React.Component {
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
       users: [],
-      messages: [],
+      messages: [{art: true, message: welcome_message}],
       inputValue: '',
       error: false,
       loading: false,
@@ -228,10 +247,13 @@ function UserList(props) {
 
 function MessageBoard(props) {
 
-  let messages = props.messagesList.map(m =>
-    <li>{m.username==null? m.message :'<'+m.username+'>' + ' ' + m.message}</li>
-  );
-
+  let messages = props.messagesList.map(m => {
+    if (m.art) {
+      return <li><div class="art">{m.message}</div></li>
+    } else {
+      return <li>{m.username==null? m.message :'<'+m.username+'>' + ' ' + m.message}</li>
+    }
+  });
 
   return (
     <div id="messagesDiv">
