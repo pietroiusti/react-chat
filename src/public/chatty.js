@@ -1,6 +1,6 @@
 "use strict";
 
-let welcome_message = `
+let welcomeMessage0 = `
 
                      __          __  _
                      \\ \\        / / | |
@@ -19,7 +19,37 @@ let welcome_message = `
 
 `;
 
-  class Chat extends React.Component {
+
+let welcomeMessage1 = `
+
+
+
+                     +-------------------------------------------------------+
+                     | +---------------------------------------------------+ |
+                     | | +-----------------------------------------------+ | |
+                     | | |  __          __  _                            | | |
+                     | | |  \\ \\        / / | |                           | | |
+                     | | |   \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___   | | |
+                     | | |    \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ \` _ \\ / _ \\  | | |
+                     | | |     \\  /\\  /  __/ | (_| (_) | | | | | |  __/  | | |
+                     | | |      \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  | | |
+                     | | |                                               | | |
+                     | | +-----------------------------------------------+ | |
+                     | +---------------------------------------------------+ |
+                     +-------------------------------------------------------+
+
+
+
+
+
+
+
+
+
+`;
+
+
+class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +57,7 @@ let welcome_message = `
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
       users: [],
-      messages: [{art: true, message: welcome_message}],
+      messages: [{art: true, message: welcomeMessage1}],
       inputValue: '',
       error: false,
       loading: false,
@@ -41,7 +71,7 @@ let welcome_message = `
 
   componentDidMount() {
     this.ws = new WebSocket(this.state.host);
-    
+
     this.ws.onopen = () => {
       console.log('WebSocket Client Connected');
     };
@@ -147,7 +177,7 @@ let welcome_message = `
       loading: true,
       error: false,
     });
-    
+
     let interval = setInterval(() => {
       console.log('foo');
       if (this.state.loadingState !== 3) {
@@ -157,7 +187,7 @@ let welcome_message = `
       }
     }, 300);
     this.setState({loadingInterval:  interval});
-    
+
     setTimeout(() => {
       this.ws.send(JSON.stringify({
         type: 'joinChat',
@@ -308,7 +338,7 @@ class UsernameForm extends React.Component {
       }
     typeWriter();
   }
-  
+
   handleChange(event) {
     this.setState({value: event.target.value});
   }
