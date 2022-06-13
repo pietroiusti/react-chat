@@ -144,11 +144,14 @@ input:focus {
 }
 
 #usernameFormContainer {
+  margin-top: 5em;
   text-align: center;
 }
 
 #usernameInput {
-  width: 50%;
+  width: 60%;
+  font-size: 20px;
+  height: 2em;
 }
 
 ul {
@@ -162,5 +165,5 @@ ul {
 }
 
 .art {
-    white-space: pre;
+  white-space: pre;
 }

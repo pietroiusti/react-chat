@@ -130,10 +130,13 @@ input:focus {
       border-radius: 12px; } }
 
 #usernameFormContainer {
+  margin-top: 5em;
   text-align: center; }
 
 #usernameInput {
-  width: 50%; }
+  width: 60%;
+  font-size: 20px;
+  height: 2em; }
 
 ul {
   list-style-type: none;
