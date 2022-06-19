@@ -50,6 +50,17 @@ const wss = new WebSocket.Server({ server });
 
 let users = [];
 
+// Overcome Heroku's timeout.
+setInterval(() => {
+  if (users.length !== 0) {
+    for (const u of users) {
+      u.ws.send(JSON.stringify({
+        type: 'keep alive',
+      }));
+    }
+  }
+}, 30000);
+
 wss.on('connection', (ws) => {
   ws.on('message', (req) => {
 
