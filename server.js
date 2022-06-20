@@ -78,17 +78,22 @@ wss.on('connection', (ws) => {
       if (req.username.length < 1) {
         ws.send(JSON.stringify({
 	  type: 'error',
-	  text: 'Please insert a username',
+	  text: 'Please insert a username.',
 	}));
       } else if (req.username.length > 25) {
         ws.send(JSON.stringify({
 	  type: 'error',
 	  text: 'Username too long!',
 	}));
+      } else if ((/\s/).test(req.username)) {
+        ws.send(JSON.stringify({
+	  type: 'error',
+	  text: 'Spaces in the username are not allowed.',
+	}));        
       } else if (usernameExists(req.username)) {
 	ws.send(JSON.stringify({
 	  type: 'error',
-	  text: 'Username already taken',
+	  text: 'Username already taken.',
 	}));
       } else {
 	joinChat(ws, req.username);
