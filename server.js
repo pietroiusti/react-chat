@@ -147,35 +147,47 @@ function joinChat(ws, username) {
 }
 
 function message(message, username) {
-  users.forEach((u) => { // send message to everyone
-    u.ws.send(JSON.stringify({
-      type: 'message',
-      username: username,
-      content: message
-    }));
-  });
-}
-
-function disconnect(ws) {  
-  // Probably barbarically inefficient but getting the job done for now...
-  let userLeaving = users.filter( (u) => u.ws === ws )[0];
-
-  users = users.filter( (u) => !(u.ws === ws) ); // remove user from users
-
-  if (userLeaving) { // if ws client actually joined the chat with a username
-    users.forEach((u) => {
+  try {
+    users.forEach((u) => { // send message to everyone
       u.ws.send(JSON.stringify({
-        type: 'userLeft',
-        users: users.map(u=>u.username),
-        username: userLeaving.username,
+        type: 'message',
+        username: username,
+        content: message
       }));
     });
+  } catch (e) {
+    console.log(e);
   }
-  
+}
+
+function disconnect(ws) {
+  try {
+    // Probably barbarically inefficient but getting the job done for now...
+    let userLeaving = users.filter( (u) => u.ws === ws )[0];
+
+    users = users.filter( (u) => !(u.ws === ws) ); // remove user from users
+
+    if (userLeaving) { // if ws client actually joined the chat with a username
+      users.forEach((u) => {
+        u.ws.send(JSON.stringify({
+          type: 'userLeft',
+          users: users.map(u=>u.username),
+          username: userLeaving.username,
+        }));
+      });
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function usernameExists(username) {
-  return users.filter((u) => {
-    return u.username === username;
-  })[0];
+  try {
+    return users.filter((u) => {
+      return u.username === username;
+    })[0];
+  } catch (e) {
+    console.log(e);
+  }
 }
+
