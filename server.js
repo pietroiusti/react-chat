@@ -52,12 +52,15 @@ let users = [];
 
 // Overcome Heroku's timeout.
 setInterval(() => {
-  if (users.length !== 0) {
-    for (const u of users) {
-      u.ws.send(JSON.stringify({
-        type: 'keep alive',
-      }));
-    }
+  try {
+    if (users.length !== 0) {
+      for (const u of users) {
+        u.ws.send(JSON.stringify({
+          type: 'keep alive',
+        }));
+      }
+    } } catch (e) {
+      console.log(e);
   }
 }, 30000);
 
@@ -69,11 +72,20 @@ wss.on('connection', (ws) => {
       console.log(req);
     } catch(e) {
       console.log(e);
-      return;
     }
 
     if (req.type === 'joinChat') {
-      if (usernameExists(req.username)) { //TODO: further conditions?
+      if (req.username.length < 1) {
+        ws.send(JSON.stringify({
+	  type: 'error',
+	  text: 'Please insert a username',
+	}));
+      } else if (req.username.length > 25) {
+        ws.send(JSON.stringify({
+	  type: 'error',
+	  text: 'Username too long!',
+	}));
+      } else if (usernameExists(req.username)) {
 	ws.send(JSON.stringify({
 	  type: 'error',
 	  text: 'Username already taken',

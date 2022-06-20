@@ -159,7 +159,6 @@ class Chat extends React.Component {
     });
 
     let interval = setInterval(() => {
-      console.log('foo');
       if (this.state.loadingState !== 3) {
         this.setState({loadingState: this.state.loadingState + 1});
       } else if (this.state.loadingState === 3) {
@@ -288,7 +287,7 @@ function MessageInput(props) {
 function ErrorNotification(props) {
   return (
     <p>
-      Error: {props.text}.
+      Error: {props.text}
     </p>
   );
 }
@@ -303,7 +302,7 @@ class UsernameForm extends React.Component {
     this.handleEnter = this.handleEnter.bind(this);
   }
 
-  componentDidMount() { // TODO: refactor
+  componentDidMount() {
       let i = 0;
       let speed = 80;
       let txt = "Type your username";

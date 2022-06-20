@@ -151,7 +151,6 @@ var Chat = function (_React$Component) {
       });
 
       var interval = setInterval(function () {
-        console.log('foo');
         if (_this3.state.loadingState !== 3) {
           _this3.setState({ loadingState: _this3.state.loadingState + 1 });
         } else if (_this3.state.loadingState === 3) {
@@ -317,8 +316,7 @@ function ErrorNotification(props) {
     'p',
     null,
     'Error: ',
-    props.text,
-    '.'
+    props.text
   );
 }
 
@@ -341,7 +339,6 @@ var UsernameForm = function (_React$Component2) {
   _createClass(UsernameForm, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      // TODO: refactor
       var i = 0;
       var speed = 80;
       var txt = "Type your username";
