@@ -194,8 +194,7 @@ class Chat extends React.Component {
           </div>
         );
       }
-    }
-    else {
+    } else {
       return (
         <div id="chatContainer">
           <Header />
@@ -301,7 +300,7 @@ class UsernameForm extends React.Component {
       value: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
   }
 
   componentDidMount() { // TODO: refactor
@@ -323,7 +322,7 @@ class UsernameForm extends React.Component {
     this.setState({value: event.target.value});
   }
 
-  handleKeyUp(event) {
+  handleEnter(event) {
     if (event.type === 'keyup')
       if (event.keyCode === 13)
         this.props.handleUsernameSubmit(this.state.value);
@@ -334,7 +333,7 @@ class UsernameForm extends React.Component {
       <input autoFocus="true" type="text"
              id="usernameInput"
              onChange={this.handleChange}
-             onKeyUp={this.handleKeyUp}/>
+             onKeyUp={this.handleEnter}/>
     );
   }
 }

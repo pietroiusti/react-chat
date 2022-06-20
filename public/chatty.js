@@ -334,7 +334,7 @@ var UsernameForm = function (_React$Component2) {
       value: ''
     };
     _this4.handleChange = _this4.handleChange.bind(_this4);
-    _this4.handleKeyUp = _this4.handleKeyUp.bind(_this4);
+    _this4.handleEnter = _this4.handleEnter.bind(_this4);
     return _this4;
   }
 
@@ -361,8 +361,8 @@ var UsernameForm = function (_React$Component2) {
       this.setState({ value: event.target.value });
     }
   }, {
-    key: 'handleKeyUp',
-    value: function handleKeyUp(event) {
+    key: 'handleEnter',
+    value: function handleEnter(event) {
       if (event.type === 'keyup') if (event.keyCode === 13) this.props.handleUsernameSubmit(this.state.value);
     }
   }, {
@@ -371,7 +371,7 @@ var UsernameForm = function (_React$Component2) {
       return React.createElement('input', { autoFocus: 'true', type: 'text',
         id: 'usernameInput',
         onChange: this.handleChange,
-        onKeyUp: this.handleKeyUp });
+        onKeyUp: this.handleEnter });
     }
   }]);
 
