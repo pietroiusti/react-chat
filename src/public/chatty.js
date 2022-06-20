@@ -1,26 +1,6 @@
 "use strict";
 
-let welcomeMessage0 = `
-
-                     __          __  _
-                     \\ \\        / / | |
-                      \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___
-                       \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ \` _ \\ / _ \\
-                        \\  /\\  /  __/ | (_| (_) | | | | | |  __/
-                         \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|
-
-
-
-
-
-
-
-
-
-`;
-
-
-let welcomeMessage1 = `
+let welcomeMessage = `
 
 
 
@@ -57,7 +37,7 @@ class Chat extends React.Component {
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
       users: [],
-      messages: [{art: true, message: welcomeMessage1}],
+      messages: [{art: true, message: welcomeMessage}],
       inputValue: '',
       error: false,
       loading: false,

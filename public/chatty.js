@@ -8,9 +8,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var welcomeMessage0 = '\n\n                     __          __  _\n                     \\ \\        / / | |\n                      \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___\n                       \\ \\/  \\/ / _ \\ |/ __/ _ \\| \'_ ` _ \\ / _ \\\n                        \\  /\\  /  __/ | (_| (_) | | | | | |  __/\n                         \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|\n\n\n\n\n\n\n\n\n\n';
-
-var welcomeMessage1 = '\n\n\n\n                     +-------------------------------------------------------+\n                     | +---------------------------------------------------+ |\n                     | | +-----------------------------------------------+ | |\n                     | | |  __          __  _                            | | |\n                     | | |  \\ \\        / / | |                           | | |\n                     | | |   \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___   | | |\n                     | | |    \\ \\/  \\/ / _ \\ |/ __/ _ \\| \'_ ` _ \\ / _ \\  | | |\n                     | | |     \\  /\\  /  __/ | (_| (_) | | | | | |  __/  | | |\n                     | | |      \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  | | |\n                     | | |                                               | | |\n                     | | +-----------------------------------------------+ | |\n                     | +---------------------------------------------------+ |\n                     +-------------------------------------------------------+\n\n\n\n\n\n\n\n\n\n';
+var welcomeMessage = '\n\n\n\n                     +-------------------------------------------------------+\n                     | +---------------------------------------------------+ |\n                     | | +-----------------------------------------------+ | |\n                     | | |  __          __  _                            | | |\n                     | | |  \\ \\        / / | |                           | | |\n                     | | |   \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___   | | |\n                     | | |    \\ \\/  \\/ / _ \\ |/ __/ _ \\| \'_ ` _ \\ / _ \\  | | |\n                     | | |     \\  /\\  /  __/ | (_| (_) | | | | | |  __/  | | |\n                     | | |      \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  | | |\n                     | | |                                               | | |\n                     | | +-----------------------------------------------+ | |\n                     | +---------------------------------------------------+ |\n                     +-------------------------------------------------------+\n\n\n\n\n\n\n\n\n\n';
 
 var Chat = function (_React$Component) {
   _inherits(Chat, _React$Component);
@@ -25,7 +23,7 @@ var Chat = function (_React$Component) {
       host: location.origin.replace(/^http/, 'ws'),
       username: '',
       users: [],
-      messages: [{ art: true, message: welcomeMessage1 }],
+      messages: [{ art: true, message: welcomeMessage }],
       inputValue: '',
       error: false,
       loading: false,
